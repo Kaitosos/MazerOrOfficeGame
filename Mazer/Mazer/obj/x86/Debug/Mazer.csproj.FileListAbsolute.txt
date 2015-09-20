@@ -1,0 +1,8 @@
+c:\users\jemandanders\documents\visual studio 2013\Projects\Mazer\Mazer\Mazer\obj\x86\Debug\Mazer.csprojResolveAssemblyReference.cache
+c:\users\jemandanders\documents\visual studio 2013\Projects\Mazer\Mazer\Mazer\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+c:\users\jemandanders\documents\visual studio 2013\Projects\Mazer\Mazer\Mazer\bin\x86\Debug\Mazer.exe
+c:\users\jemandanders\documents\visual studio 2013\Projects\Mazer\Mazer\Mazer\bin\x86\Debug\Mazer.pdb
+c:\users\jemandanders\documents\visual studio 2013\Projects\Mazer\Mazer\Mazer\obj\x86\Debug\Mazer.exe
+c:\users\jemandanders\documents\visual studio 2013\Projects\Mazer\Mazer\Mazer\obj\x86\Debug\Mazer.pdb
+C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\Mazer\bin\x86\Debug\Content\pix.xnb
+C:\Users\JemandAnders\documents\visual studio 2013\Projects\Mazer\Mazer\Mazer\bin\x86\Debug\Content\sf.xnb
