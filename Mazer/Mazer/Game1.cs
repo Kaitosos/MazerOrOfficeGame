@@ -30,7 +30,7 @@ namespace Mazer
         bool showMap;
         double last = 0;
         KeyboardState oks;
-        bool debug = true;
+        bool debug = false;
 
         public Game1()
         {
@@ -72,8 +72,11 @@ namespace Mazer
             oks = Keyboard.GetState();
             pause = false;
             showMap = false;
-            worker = new Thread(MapBuilder.CreateNextMap);
-            worker.Start();
+            if (Data.NextMaps != null)
+            {
+                worker = new Thread(MapBuilder.CreateNextMap);
+                worker.Start();
+            }
         }
 
         /// <summary>
@@ -82,7 +85,7 @@ namespace Mazer
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            worker.Abort();
         }
 
         /// <summary>
@@ -137,7 +140,7 @@ namespace Mazer
             this.map.Draw(spriteBatch, tex,showMap);
             this.player.Draw(spriteBatch, tex);
             #region Draw Helper
-            if (map.helper)
+            if (map.Helper)
             {
                 DrawLine(spriteBatch, new Vector2(player.Hitbox.Center.X, player.Hitbox.Center.Y), new Vector2(map.Destination.Hitbox.Center.X, map.Destination.Hitbox.Center.Y));
             }
@@ -155,6 +158,10 @@ namespace Mazer
             {
                 spriteBatch.DrawString(font, "Blue will show you the way", new Vector2(-30, -40), Color.Blue);
             }
+            if (map.Coins)
+                spriteBatch.DrawString(font, "C:" + Data.Coins + "(" + map.CoinsCount + ")", new Vector2(-camera.position.X + 180, -camera.position.Y), Color.Gold * 0.75f);
+            if (map.Energy)
+                spriteBatch.DrawString(font, "E:" + Data.Energy + "(" + map.EnergyCount + ")", new Vector2(-camera.position.X + 180, -camera.position.Y + 20), Color.CornflowerBlue * 0.75f);
             #endregion
             #region Draw Help
             if (info)
@@ -174,7 +181,7 @@ namespace Mazer
             #region Draw DebugInfo
             if(debug)
             {
-                spriteBatch.DrawString(font, "BL" + Data.NextMaps.Count, new Vector2(-camera.position.X + 100, -camera.position.Y), Color.Yellow);
+                spriteBatch.DrawString(font, "BL" + Data.NextMaps.Count, new Vector2(-camera.position.X + 100, -camera.position.Y), Color.Yellow * 0.75f);
             }
             #endregion
             spriteBatch.End();

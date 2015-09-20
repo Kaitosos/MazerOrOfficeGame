@@ -15,7 +15,8 @@ namespace Mazer
         Death,
         NewGame,
         Helper,
-        Coin
+        Coin,
+        Energy
     }
 
     public enum Aktion

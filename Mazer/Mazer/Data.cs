@@ -11,6 +11,8 @@ namespace Mazer
         public static int Death;
         public static int Time;
         public static int Levels;
+        public static int Energy;
+        public static int Coins;
         public static int TraveldDistance;
         public static int LastSeed;
         public static int Windowsize;
@@ -18,27 +20,33 @@ namespace Mazer
         public static int BufferDistance;
         public static int BlockPerLevel;
         public static int Size;
-        public static int BrancCount;
+        public static int BranchCount;
+        public static int LevelTilBlockPerLevelResize;
+        public static int BlockPerLevelAdd;
         public static int ReBufferTravelDistance;
         public static int ForwardCreatedMaps;
         public static Queue<Map> NextMaps;
 
         public static void SetNull()
         {
-            Death = 0;
-            Time = 0;
-            Levels = 0;
-            TraveldDistance = 0;
-            LastSeed = 0;
-            Windowsize = 256;
-            BufferTime = 250;
-            BufferDistance = 1024;
-            BlockPerLevel = 50;
-            Size = 64;
-            BrancCount = 0;
-            ForwardCreatedMaps = 2;
-            ReBufferTravelDistance = BufferDistance - (Windowsize / 2);
-            NextMaps = new Queue<Map>(ForwardCreatedMaps);
+            Data.Energy = 0;
+            Data.Coins = 0;
+            Data.BranchCount = 2;
+            Data.Death = 0;
+            Data.Time = 0;
+            Data.Levels = 0;
+            Data.TraveldDistance = 0;
+            Data.LastSeed = 0;
+            Data.Windowsize = 256;
+            Data.BufferTime = 250;
+            Data.BufferDistance = 1024;
+            Data.BlockPerLevel = 50;
+            Data.Size = 64;
+            Data.LevelTilBlockPerLevelResize = 8;
+            Data.BlockPerLevelAdd = 25;
+            Data.ForwardCreatedMaps = 3;
+            Data.ReBufferTravelDistance = BufferDistance - (Windowsize / 2);
+            Data.NextMaps = new Queue<Map>(ForwardCreatedMaps);
         }
 
         public static void Load()

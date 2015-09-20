@@ -7,7 +7,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\Mazer\bin\x86\Release\Content\pix.xnb</Output>
+      <Output>C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Content\pix.xnb</Output>
       <Time>2015-09-19T00:18:37.1200581+02:00</Time>
     </Item>
     <Item>
@@ -16,7 +16,7 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\Mazer\bin\x86\Release\Content\sf.xnb</Output>
+      <Output>C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Content\sf.xnb</Output>
       <Time>2015-09-19T06:07:01.907356+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
@@ -26,10 +26,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Release</BuildConfiguration>
       <CompressContent>true</CompressContent>
-      <RootDirectory>C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\MazerContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\Mazer\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\Mazer\obj\x86\Release\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\Mazer\bin\x86\Release\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\MazerContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

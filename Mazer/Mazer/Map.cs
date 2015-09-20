@@ -21,8 +21,14 @@ namespace Mazer
 
         public Field Destination { get { return destination; } }
         public bool restart;
-        public bool helper;
+        public bool Helper;
         public int HelperCount;
+        public bool Coins;
+        public int CoinsCount;
+        public bool Energy;
+        public int EnergyCount;
+
+
 
         public Map(int seed, int size, int level)
         {
@@ -30,8 +36,12 @@ namespace Mazer
             this.Seed = seed;
             this.field = new Field[size];
             this.size = size;
-            this.createMap(level);
             this.restart = false;
+            this.Coins = false;
+            this.Energy = false;
+            this.CoinsCount = 0;
+            this.EnergyCount = 0;
+            this.createMap(level);
             this.checkField = new List<Field>();
             RecalcBuffer();
         }
@@ -66,11 +76,12 @@ namespace Mazer
                     onPath = true;
                 }
             }
-            this.helper = false;
+            this.Helper = false;
             foreach (Field f in intersects)
             {
                 if (f.Type == FieldTypes.Helper)
-                    this.helper = true;
+                    this.Helper = true;
+                f.Use(this);
             }
             return onPath;
         }
@@ -89,7 +100,6 @@ namespace Mazer
         private void createMap(int level)
         {
             #region Createsettings & Vars
-            Data.BrancCount = 0;
             int posX = 0;
             int posY = 0;
             int dir = 0;
@@ -100,9 +110,7 @@ namespace Mazer
             int maxLenght = 4 + (level / 2);
             if (maxLenght > 16)
                 maxLenght = 16;
-            int maxBranchSize = 25 + (level / 3);
-            if (maxBranchSize > 50)
-                maxBranchSize = 50;
+            int maxBranchSize = size / (level + Data.BranchCount);
             int ConnectionChance = 12 + (size / 120) + (level * level / 8);
             #endregion
             this.field[0] = new Field(posX, posY, FieldTypes.Spawn);
@@ -232,6 +240,71 @@ namespace Mazer
                 this.HelperCount += 2;
             }
             #endregion
+            #region SetCoins
+            for (int i = 0; i < level / 6; ++i)
+            {
+                this.Coins = true;
+                Field f;
+                do
+                {
+                    do
+                    {
+                        f = this.field[r.Next(1, size - 1)];
+                    } while (surrounding(f.X, f.Y) < 13);
+                } while (f.SetCoin() == false);
+                do
+                {
+                    do
+                    {
+                        f = this.field[r.Next(1, size - 1)];
+                    } while (surrounding(f.X, f.Y) < 13);
+                } while (f.SetCoin() == false);
+                do
+                {
+                    do
+                    {
+                        f = this.field[r.Next(1, size - 1)];
+                    } while (surrounding(f.X, f.Y) < 13);
+                } while (f.SetCoin() == false);
+                this.CoinsCount += 3;
+            }
+            #endregion
+            #region Set Energy
+            for (int i = 0; i < level / 9; ++i)
+            {
+                this.Energy = true;
+                Field f;
+                do
+                {
+                    do
+                    {
+                        f = this.field[r.Next(1, size - 1)];
+                    } while (surrounding(f.X, f.Y) < 13);
+                } while (f.SetEnergy() == false);
+                do
+                {
+                    do
+                    {
+                        f = this.field[r.Next(1, size - 1)];
+                    } while (surrounding(f.X, f.Y) < 13);
+                } while (f.SetEnergy() == false);
+                do
+                {
+                    do
+                    {
+                        f = this.field[r.Next(1, size - 1)];
+                    } while (surrounding(f.X, f.Y) < 13);
+                } while (f.SetEnergy() == false);
+                do
+                {
+                    do
+                    {
+                        f = this.field[r.Next(1, size - 1)];
+                    } while (surrounding(f.X, f.Y) < 13);
+                } while (f.SetEnergy() == false);
+                this.EnergyCount += 4;
+            }
+            #endregion
         }
 
         private int surrounding(int x, int y)
@@ -310,6 +383,12 @@ namespace Mazer
                             case FieldTypes.Helper:
                                 sb.Draw(tex, f.Hitbox, Color.Blue);
                                 break;
+                            case FieldTypes.Energy:
+                                sb.Draw(tex, f.Hitbox, Color.CornflowerBlue);
+                                break;
+                            case FieldTypes.Coin:
+                                sb.Draw(tex, f.Hitbox, Color.Gold);
+                                break;
                         }
                     }
                 }
@@ -333,6 +412,12 @@ namespace Mazer
                                 break;
                             case FieldTypes.Helper:
                                 sb.Draw(tex, f.Hitbox, Color.Blue);
+                                break;
+                            case FieldTypes.Energy:
+                                sb.Draw(tex, f.Hitbox, Color.CornflowerBlue);
+                                break;
+                            case FieldTypes.Coin:
+                                sb.Draw(tex, f.Hitbox, Color.Gold);
                                 break;
                         }
                     }

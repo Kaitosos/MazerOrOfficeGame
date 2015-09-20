@@ -6,3 +6,11 @@ C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\Mazer\ob
 C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\Mazer\obj\x86\Release\Mazer.pdb
 C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\Mazer\obj\x86\Release\Mazer.csprojResolveAssemblyReference.cache
 C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\Mazer\bin\x86\Release\Content\sf.xnb
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Content\pix.xnb
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Content\sf.xnb
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Mazer.exe
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Mazer.pdb
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Mazer.exe
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Mazer.pdb
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Mazer.csprojResolveAssemblyReference.cache

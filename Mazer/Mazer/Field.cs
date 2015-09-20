@@ -44,18 +44,26 @@ namespace Mazer
             this.hitbox = new Rectangle(x * Data.Size, y * Data.Size, Data.Size, Data.Size);
         }
 
-        public void Use()
+        public void Use(Map parrent)
         {
             switch(this.type)
             {
                 case FieldTypes.Button:
                     if (connection != null)
-                        this.connection.Use();
+                        this.connection.Use(parrent);
                     break;
                 case FieldTypes.Trap:
                     if (connection != null)
-                        this.connection.Use();
+                        this.connection.Use(parrent);
                     this.type = FieldTypes.Death;
+                    break;
+                case FieldTypes.Coin:
+                    Data.Coins++;
+                    this.type = FieldTypes.Path;
+                    break;
+                case FieldTypes.Energy:
+                    Data.Energy++;
+                    this.type = FieldTypes.Path;
                     break;
                 case FieldTypes.Destination:
                     this.type = FieldTypes.NewGame;
@@ -69,6 +77,24 @@ namespace Mazer
             if(type == FieldTypes.Path)
             {
                 this.type = FieldTypes.Helper;
+                return true;
+            }
+            return false;
+        }
+        public bool SetCoin()
+        {
+            if (type == FieldTypes.Path)
+            {
+                this.type = FieldTypes.Coin;
+                return true;
+            }
+            return false;
+        }
+        public bool SetEnergy()
+        {
+            if (type == FieldTypes.Path)
+            {
+                this.type = FieldTypes.Energy;
                 return true;
             }
             return false;

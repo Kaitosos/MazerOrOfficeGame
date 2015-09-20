@@ -4,7 +4,7 @@
 	Levelelemente V
 		Helper V
 		Energy 
-		Trap V
+		Trap 
 		Spawn V
 		Destination V
 		Coins
@@ -21,6 +21,7 @@ MS2:
 			ArrowKeys
 		Live
 		Skills
+			Teleport
 MS3:
 	Enemys
 		Attack
