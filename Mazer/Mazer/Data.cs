@@ -60,6 +60,8 @@ namespace Mazer
                 Levels = Convert.ToInt32(singleS[2]);
                 TraveldDistance = Convert.ToInt32(singleS[3]);
                 LastSeed = Convert.ToInt32(singleS[4]);
+                Energy = Convert.ToInt32(singleS[5]);
+                Coins = Convert.ToInt32(singleS[6]);
             }
             else
             {
@@ -73,7 +75,7 @@ namespace Mazer
             {
                 File.Delete("save.txt");
             }
-            File.WriteAllText("save.txt", Death + "," + Time + "," + Levels + "," + TraveldDistance + "," + LastSeed);
+            File.WriteAllText("save.txt", Death + "," + Time + "," + Levels + "," + TraveldDistance + "," + LastSeed + "," + Energy + "," + Coins);
         }
     }
 }
