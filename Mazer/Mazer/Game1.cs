@@ -34,7 +34,7 @@ namespace Mazer
         /// <summary>
         /// Important set false before Publish Game;
         /// </summary>
-        bool debug = false;
+        bool debug = true;
 
         public Game1()
         {
@@ -147,7 +147,7 @@ namespace Mazer
                 this.map.Draw(spriteBatch, tex, showMap);
                 this.player.Draw(spriteBatch, tex);
                 #region Draw Helper
-                if (map.Helper)
+                if (map.Helper || debug && showMap)
                 {
                     DrawLine(spriteBatch, new Vector2(player.Hitbox.Center.X, player.Hitbox.Center.Y), new Vector2(map.Destination.Hitbox.Center.X, map.Destination.Hitbox.Center.Y));
                 }
@@ -308,7 +308,7 @@ namespace Mazer
             showMap = !showMap;
             if (showMap)
             {
-                camera.Zoom = 0.1f;
+                camera.Zoom = 0.05f;
                 camera.position = new Vector2(Data.Windowsize * 5, Data.Windowsize * 5);
             }
             else
