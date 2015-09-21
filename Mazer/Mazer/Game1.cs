@@ -30,6 +30,10 @@ namespace Mazer
         bool showMap;
         double last = 0;
         KeyboardState oks;
+
+        /// <summary>
+        /// Important set false before Publish Game;
+        /// </summary>
         bool debug = false;
 
         public Game1()
@@ -68,7 +72,7 @@ namespace Mazer
             spriteBatch = new SpriteBatch(GraphicsDevice);
             tex = Content.Load<Texture2D>("pix");
             font = Content.Load<SpriteFont>("sf");
-            map = new Map(DateTime.Now.Second * DateTime.Now.Millisecond * DateTime.Now.Hour, Data.BlockPerLevel,0);
+            map = new Map(DateTime.Now.Second * DateTime.Now.Millisecond * DateTime.Now.Hour, Data.BlockPerLevel, 0);
             oks = Keyboard.GetState();
             pause = false;
             showMap = false;
@@ -135,53 +139,73 @@ namespace Mazer
             GraphicsDevice.Clear(Color.Black);
 
             //        spriteBatch.Begin(SpriteSortMode.Deferred,SpriteBlendMode.AlphaBlend SaveStateMode.None, camera.GetMatrix());
-
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, this.camera.GetMatrix());
-            this.map.Draw(spriteBatch, tex,showMap);
-            this.player.Draw(spriteBatch, tex);
-            #region Draw Helper
-            if (map.Helper)
-            {
-                DrawLine(spriteBatch, new Vector2(player.Hitbox.Center.X, player.Hitbox.Center.Y), new Vector2(map.Destination.Hitbox.Center.X, map.Destination.Hitbox.Center.Y));
-            }
-            #endregion
-            #region Draw Info
-            spriteBatch.DrawString(font, "Level: " + Data.Levels + "    Death: " + Data.Death, new Vector2(-30, -20), Color.White);
-            if (Data.Levels > 2)
-                spriteBatch.DrawString(font, "Helper : " + map.HelperCount, new Vector2(-30, -40), Color.Blue);
-            if (Data.Levels == 0)
-            {
-                spriteBatch.DrawString(font, "Press [H]", new Vector2(-30, -40), Color.White);
-                spriteBatch.DrawString(font, "Find the green", new Vector2(-30, -60), Color.LimeGreen);
-            }
-            else if (Data.Levels == 2)
-            {
-                spriteBatch.DrawString(font, "Blue will show you the way", new Vector2(-30, -40), Color.Blue);
-            }
-            if (map.Coins)
-                spriteBatch.DrawString(font, "C:" + Data.Coins + "(" + map.CoinsCount + ")", new Vector2(-camera.position.X + 180, -camera.position.Y), Color.Gold * 0.75f);
-            if (map.Energy)
-                spriteBatch.DrawString(font, "E:" + Data.Energy + "(" + map.EnergyCount + ")", new Vector2(-camera.position.X + 180, -camera.position.Y + 20), Color.CornflowerBlue * 0.75f);
-            #endregion
-            #region Draw Help
-            if (info)
-            {
-                spriteBatch.DrawString(font, "Controls", new Vector2(-camera.position.X, -camera.position.Y), Color.Red);
-                spriteBatch.DrawString(font, "W A S D = Moving", new Vector2(-camera.position.X, -camera.position.Y + 20), Color.Red);
-                spriteBatch.DrawString(font, "H = Help", new Vector2(-camera.position.X, -camera.position.Y + 40), Color.Red);
-                spriteBatch.DrawString(font, "L = Load last interrupted Game", new Vector2(-camera.position.X, -camera.position.Y + 60), Color.Red);
-                spriteBatch.DrawString(font, "Y & X = Resize Window", new Vector2(-camera.position.X, -camera.position.Y + 80), Color.Red);
-                spriteBatch.DrawString(font, "Space = Toggle Pause", new Vector2(-camera.position.X, -camera.position.Y + 100), Color.Red);
-                spriteBatch.DrawString(font, "ESC = Save and Quit", new Vector2(-camera.position.X, -camera.position.Y + 120), Color.Red);
-                spriteBatch.DrawString(font, "Old saves will be overwritten", new Vector2(-camera.position.X, -camera.position.Y + 160), Color.Red);
-                spriteBatch.DrawString(font, "if you end an other game.", new Vector2(-camera.position.X, -camera.position.Y + 180), Color.Red);
 
+            #region Pauseable
+            if (!pause)
+            {
+                this.map.Draw(spriteBatch, tex, showMap);
+                this.player.Draw(spriteBatch, tex);
+                #region Draw Helper
+                if (map.Helper)
+                {
+                    DrawLine(spriteBatch, new Vector2(player.Hitbox.Center.X, player.Hitbox.Center.Y), new Vector2(map.Destination.Hitbox.Center.X, map.Destination.Hitbox.Center.Y));
+                }
+                #endregion
+                #region Draw Info
+                spriteBatch.DrawString(font, "Level: " + Data.Levels + "    Death: " + Data.Death, new Vector2(-30, -20), Color.White);
+                if (Data.Levels > 2)
+                    spriteBatch.DrawString(font, "Helper : " + map.HelperCount, new Vector2(-30, -40), Color.Blue);
+                if (Data.Levels == 0)
+                {
+                    spriteBatch.DrawString(font, "Press [H]", new Vector2(-30, -40), Color.White);
+                    spriteBatch.DrawString(font, "Find the green", new Vector2(-30, -60), Color.LimeGreen);
+                }
+                else if (Data.Levels == 2)
+                {
+                    spriteBatch.DrawString(font, "Blue will show you the way", new Vector2(-30, -40), Color.Blue);
+                }
+                if (map.Coins)
+                    spriteBatch.DrawString(font, "C:" + Data.Coins + "(" + map.CoinsCount + ")", new Vector2(-camera.position.X + 180, -camera.position.Y), Color.Gold * 0.75f);
+                if (map.Energy)
+                    spriteBatch.DrawString(font, "E:" + Data.Energy + "(" + map.EnergyCount + ")", new Vector2(-camera.position.X + 180, -camera.position.Y + 20), Color.CornflowerBlue * 0.75f);
+                #endregion
+                #region Draw Help
+                if (info)
+                {
+                    spriteBatch.DrawString(font, "Controls", new Vector2(-camera.position.X, -camera.position.Y), Color.Red);
+                    spriteBatch.DrawString(font, "W A S D = Moving", new Vector2(-camera.position.X, -camera.position.Y + 20), Color.Red);
+                    spriteBatch.DrawString(font, "H = Help", new Vector2(-camera.position.X, -camera.position.Y + 40), Color.Red);
+                    spriteBatch.DrawString(font, "L = Load last interrupted Game", new Vector2(-camera.position.X, -camera.position.Y + 60), Color.Red);
+                    spriteBatch.DrawString(font, "Y & X = Resize Window", new Vector2(-camera.position.X, -camera.position.Y + 80), Color.Red);
+                    spriteBatch.DrawString(font, "Space = Paus & Settings", new Vector2(-camera.position.X, -camera.position.Y + 100), Color.Red);
+                    spriteBatch.DrawString(font, "ESC = Save and Quit", new Vector2(-camera.position.X, -camera.position.Y + 120), Color.Red);
+                    spriteBatch.DrawString(font, "Old saves will be overwritten", new Vector2(-camera.position.X, -camera.position.Y + 160), Color.Red);
+                    spriteBatch.DrawString(font, "if you end an other game.", new Vector2(-camera.position.X, -camera.position.Y + 180), Color.Red);
+
+                }
+                #endregion
+            }
+            #endregion
+            else
+            #region Pause & Setting Screen
+            {
+                spriteBatch.DrawString(font, "Paused & Settings", new Vector2(-camera.position.X + 50, -camera.position.Y), Color.Red);
+                if (map.Coins)
+                {
+                    spriteBatch.DrawString(font, "C:" + Data.Coins, new Vector2(-camera.position.X + 200, -camera.position.Y), Color.Gold);
+                }
+                if (map.Energy)
+                {
+                    spriteBatch.DrawString(font, "E:" + Data.Energy, new Vector2(-camera.position.X + 200, -camera.position.Y + 20), Color.CornflowerBlue);
+                }
             }
             #endregion
             #region Draw DebugInfo
-            if(debug)
+            if (debug)
             {
-                spriteBatch.DrawString(font, "BL" + Data.NextMaps.Count, new Vector2(-camera.position.X + 100, -camera.position.Y), Color.Yellow * 0.75f);
+                if (Data.NextMaps.Count < Data.ForwardCreatedMaps)
+                    spriteBatch.DrawString(font, "BL" + Data.NextMaps.Count, new Vector2(-camera.position.X + 100, -camera.position.Y), Color.Yellow * 0.75f);
             }
             #endregion
             spriteBatch.End();
@@ -213,9 +237,9 @@ namespace Mazer
 
         private void Load()
         {
-            Data.Load();;
+            Data.Load(); ;
             int blocks = (Data.BlockPerLevel + (Data.Levels / 10) * 25) * Data.Levels;
-            map = new Map(Data.LastSeed, Data.BlockPerLevel + blocks,Data.Levels);
+            map = new Map(Data.LastSeed, Data.BlockPerLevel + blocks, Data.Levels);
             Data.NextMaps.Clear();
             player = new Player();
             camera = new Camera(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -235,7 +259,7 @@ namespace Mazer
             map = Data.NextMaps.Dequeue();
             player = new Player();
             camera = new Camera(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            this.camera.Zoom = (float)(Data.Windowsize / 256f); 
+            this.camera.Zoom = (float)(Data.Windowsize / 256f);
             Data.Levels++;
         }
         private void ResizeGame(int mod)
