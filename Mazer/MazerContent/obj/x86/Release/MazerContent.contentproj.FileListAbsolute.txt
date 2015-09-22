@@ -1,2 +1,1 @@
 C:\Users\JemandAnders\Documents\Visual Studio 2013\Projects\Mazer\Mazer\MazerContent\obj\x86\Release\MazerContent.contentprojResolveAssemblyReference.cache
-C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\MazerContent\obj\x86\Release\MazerContent.contentprojResolveAssemblyReference.cache

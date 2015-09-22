@@ -148,17 +148,17 @@ namespace Mazer
                 #region Move Aktual Position and Set
                 switch (dir)
                 {
-                    case 0:
+                    case 0: //North
                         posY -= 1;
                         break;
-                    case 1:
-                        posX -= 1;
+                    case 1: //East
+                        posX += 1;
                         break;
-                    case 2:
+                    case 2: //South
                         posY += 1;
                         break;
-                    case 3:
-                        posX += 1;
+                    case 3: //West
+                        posX -= 1;
                         break;
                 }
                 int surr = surrounding(posX, posY);
@@ -320,10 +320,10 @@ namespace Mazer
             bool downLeft = false;
             bool upLeft = false;
             /*
-             *     -1 -1 UpRight       +0 -1 Up       +1 -1 UpLeft
-             *     -1 +0 Right         +0 +0 Center   +1 +0 Left
-             *     -1 +1 DownRight     +0 +1 Down     +1 +1 DownLeft
-             */
+            *     -1 -1 UpLeft        +0 -1 Up       +1 -1 UpRight  
+            *     -1 +0 Left          +0 +0 Center   +1 +0 Right    
+            *     -1 +1 DownLeft      +0 +1 Down     +1 +1 DownRight
+            */
             foreach (Field f in field)
             {
                 if (f != null)
@@ -399,9 +399,9 @@ namespace Mazer
         /// <param name="maxArrayUsage">Max Fields in field</param>
         /// <param name="type">Type of the Room</param>
         /// <returns>A List withe Fields for the Room, empty if imposible</returns>
-        private List<Field> createRoom(int x, int y, int dir, int hight, int with,int aktualArrayUsage, int maxArrayUsage, RoomTypes type)
+        private List<Field> createRoom(int x, int y, int dir, int hight, int with, int aktualArrayUsage, int maxArrayUsage, RoomTypes type)
         {
-            return createRoom(x,y,dir,hight,with,aktualArrayUsage,maxArrayUsage,type,new RoomFlags[]{RoomFlags.None});
+            return createRoom(x, y, dir, hight, with, aktualArrayUsage, maxArrayUsage, type, new RoomFlags[] { RoomFlags.None });
         }
         /// <summary>
         /// Calculate a Room, Check if its free, 
@@ -416,23 +416,60 @@ namespace Mazer
         /// <param name="type">Type of the Room</param>
         /// <param name="flags">Extraflaggs of the room</param>
         /// <returns>A List withe Fields for the Room, empty if imposible</returns>
-        private List<Field> createRoom(int x, int y, int dir, int hight, int with,int aktualArrayUsage, int maxArrayUsage, RoomTypes type, RoomFlags[] flags)
+        private List<Field> createRoom(int x, int y, int dir, int hight, int with, int aktualArrayUsage, int maxArrayUsage, RoomTypes type, RoomFlags[] flags)
         {
-            int startX, startY;
             List<Field> value = new List<Field>();
             if (maxArrayUsage - aktualArrayUsage < hight * with)
                 return value;
-            switch(dir)
+            #region example
+            /*
+             *  New Room; 
+             *  OL        OR 
+             *  h|FFFFFFFFF
+             *  i|FFFFFFFFF
+             *  g|FFFFFFFFF
+             *  h|FFFFFFFFF
+             *  t|FFFFFFFFF
+             *   X--------Y
+             *  UL        UR
+             *     with
+             */
+            /*+
+            *     -1 -1 UpLeft        +0 -1 Up       +1 -1 UpRight  
+            *     -1 +0 Left          +0 +0 Center   +1 +0 Right    
+            *     -1 +1 DownLeft      +0 +1 Down     +1 +1 DownRight
+            */
+            #endregion
+            Point OR, UR, OL, UL;
+            #region Turn Basics
+            switch (dir)
             {
                 case 1:
+                    UL = new Point(x - (with / 2) - with % 2, y);
+                    UR = new Point(UL.X + with, y);
+                    OL = new Point(UL.X, UL.Y - hight);
+                    OR = new Point(UL.X + with, UL.Y + hight);
                     break;
                 case 2:
+                    OL = new Point(x, y - (with / 2) - with % 2);
+                    UL = new Point(x, OL.Y + hight);
+                    UR = new Point(UL.X + with, OL.Y - hight);
+                    OR = new Point(UL.X + with, UL.Y + hight);
                     break;
                 case 3:
+                    UL = new Point(x - (with / 2) - (with % 2) + hight, y);
+                    UR = new Point(UL.X + with, y);
+                    OL = new Point(UL.X, UL.Y - hight);
+                    OR = new Point(UL.X + with, UL.Y + hight);
                     break;
                 case 4:
+                    UL = new Point(x - (with / 2) - with % 2, y);
+                    UR = new Point(UL.X + with, y);
+                    OL = new Point(UL.X, UL.Y - hight);
+                    OR = new Point(UL.X + with, UL.Y + hight);
                     break;
             }
+            #endregion
             return value;
         }
 

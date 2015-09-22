@@ -14,3 +14,14 @@ C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Rel
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Mazer.exe
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Mazer.pdb
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Mazer.csprojResolveAssemblyReference.cache
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.dll
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.Game.dll
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.GamerServices.dll
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.xml
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.Game.xml
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.Graphics.xml
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.GamerServices.xml
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Mazer.exe.config
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Build.dll
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll
