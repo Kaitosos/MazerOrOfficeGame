@@ -111,7 +111,8 @@ namespace Mazer
             if (maxLenght > 16)
                 maxLenght = 16;
             int maxBranchSize = size / (level + Data.BranchCount);
-            int ConnectionChance = 6 + (size / 100);// +(level / 4);
+            int ConnectionChance = 8 + (size / 2500) + (int)(level * level * 0.01f);//6 + (size / (250 + (level * 10)));
+            int RoomCount = level / 5;
             #endregion
             this.field[0] = new Field(posX, posY, FieldTypes.Spawn);
             this.start = this.field[0];
@@ -139,13 +140,14 @@ namespace Mazer
                         f = this.field[r.Next(0, i)];
                         posX = f.X;
                         posY = f.Y;
-                    } while (this.surrounding(f.X, f.Y) > 12);
+                    } while (this.surroundingPathDedect(f.X, f.Y) > 12);
                     dir = r.Next(0, 4);
                     newBranch = false;
                     startedBranch = true;
                 }
                 #endregion
                 #region Move Aktual Position and Set
+                #region Set Dir
                 switch (dir)
                 {
                     case 0: //North
@@ -161,9 +163,43 @@ namespace Mazer
                         posX -= 1;
                         break;
                 }
-                int surr = surrounding(posX, posY);
+                #endregion
+                #region Check Field and Set
+                int surr = surroundingPathDedect(posX, posY);
                 if (surr <= 2 || startedBranch && surr <= 3)
                 {
+                    /*
+                    if (level >= 6 && i > 100 && RoomCount > 0)
+                    {
+                        List<Field> fields = createRoom(posX, posY, dir, 3, 3, i, size, RoomTypes.NormalRoom, new RoomFlags[] { RoomFlags.CrossRoadsBig });
+                        if (fields.Count < size - i)
+                        {
+                            if(fields.Count == 0)
+                            {
+                                field[i] = new Field(posX, posY);
+                                count -= 1;
+                                startedBranch = false;
+                            }
+                            else
+                            {
+                                field[i] = new Field(posX, posY);
+                                foreach (Field f in fields)
+                                {
+                                    ++i;
+                                    field[i] = f;
+                                }
+                                newBranch = true;
+                                --RoomCount;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        field[i] = new Field(posX, posY);
+                        count -= 1;
+                        startedBranch = false;
+                    }
+                        */
                     field[i] = new Field(posX, posY);
                     count -= 1;
                     startedBranch = false;
@@ -173,14 +209,15 @@ namespace Mazer
                     if (r.Next(0, ConnectionChance) == 1)
                         field[i] = new Field(posX, posY);
                     else
-                        i--;
+                        --i;
                     newBranch = true;
                 }
                 else
                 {
-                    i--;
+                    --i;
                     newBranch = true;
                 }
+                #endregion
                 #endregion
             }
             #endregion
@@ -212,9 +249,11 @@ namespace Mazer
                     }
                     if (free)
                     {
+
                         set = true;
                         field[size - 1] = new Field(posX, posY, FieldTypes.Destination);
                         destination = field[size - 1];
+
                     }
                 }
             }
@@ -229,14 +268,14 @@ namespace Mazer
                     do
                     {
                         f = this.field[r.Next(1, size - 1)];
-                    } while (surrounding(f.X, f.Y) < 13);
+                    } while (surroundingPathDedect(f.X, f.Y) < 13);
                 } while (f.SetHelper() == false);
                 do
                 {
                     do
                     {
                         f = this.field[r.Next(1, size - 1)];
-                    } while (surrounding(f.X, f.Y) < 13);
+                    } while (surroundingPathDedect(f.X, f.Y) < 13);
                 } while (f.SetHelper() == false);
                 this.HelperCount += 2;
             }
@@ -251,21 +290,21 @@ namespace Mazer
                     do
                     {
                         f = this.field[r.Next(1, size - 1)];
-                    } while (surrounding(f.X, f.Y) < 13);
+                    } while (surroundingPathDedect(f.X, f.Y) < 13);
                 } while (f.SetCoin() == false);
                 do
                 {
                     do
                     {
                         f = this.field[r.Next(1, size - 1)];
-                    } while (surrounding(f.X, f.Y) < 13);
+                    } while (surroundingPathDedect(f.X, f.Y) < 13);
                 } while (f.SetCoin() == false);
                 do
                 {
                     do
                     {
                         f = this.field[r.Next(1, size - 1)];
-                    } while (surrounding(f.X, f.Y) < 13);
+                    } while (surroundingPathDedect(f.X, f.Y) < 13);
                 } while (f.SetCoin() == false);
                 this.CoinsCount += 3;
             }
@@ -280,35 +319,35 @@ namespace Mazer
                     do
                     {
                         f = this.field[r.Next(1, size - 1)];
-                    } while (surrounding(f.X, f.Y) < 13);
+                    } while (surroundingPathDedect(f.X, f.Y) < 13);
                 } while (f.SetEnergy() == false);
                 do
                 {
                     do
                     {
                         f = this.field[r.Next(1, size - 1)];
-                    } while (surrounding(f.X, f.Y) < 13);
+                    } while (surroundingPathDedect(f.X, f.Y) < 13);
                 } while (f.SetEnergy() == false);
                 do
                 {
                     do
                     {
                         f = this.field[r.Next(1, size - 1)];
-                    } while (surrounding(f.X, f.Y) < 13);
+                    } while (surroundingPathDedect(f.X, f.Y) < 13);
                 } while (f.SetEnergy() == false);
                 do
                 {
                     do
                     {
                         f = this.field[r.Next(1, size - 1)];
-                    } while (surrounding(f.X, f.Y) < 13);
+                    } while (surroundingPathDedect(f.X, f.Y) < 13);
                 } while (f.SetEnergy() == false);
                 this.EnergyCount += 4;
             }
             #endregion
         }
 
-        private int surrounding(int x, int y)
+        private int surroundingPathDedect(int x, int y)
         {
             int value = 0;
             bool up = false;
@@ -386,7 +425,64 @@ namespace Mazer
             }
             return value;
         }
-
+        private int surrounding(int x, int y)
+        {
+            int value = 0;
+            bool up = false;
+            bool right = false;
+            bool left = false;
+            bool down = false;
+            bool upRight = false;
+            bool downRight = false;
+            bool downLeft = false;
+            bool upLeft = false;
+            /*
+            *     -1 -1 UpLeft        +0 -1 Up       +1 -1 UpRight  
+            *     -1 +0 Left          +0 +0 Center   +1 +0 Right    
+            *     -1 +1 DownLeft      +0 +1 Down     +1 +1 DownRight
+            */
+            foreach (Field f in field)
+            {
+                if (f != null)
+                {
+                    if (f.X == x + 0 && f.Y == y - 1)
+                        up = true;
+                    else if (f.X == x + 0 && f.Y == y + 1)
+                        down = true;
+                    else if (f.X == x - 1 && f.Y == y + 0)
+                        right = true;
+                    else if (f.X == x + 1 && f.Y == y + 0)
+                        left = true;
+                    else if (f.X == x - 1 && f.Y == y - 1)
+                        upRight = true;
+                    else if (f.X == x - 1 && f.Y == y + 1)
+                        downRight = true;
+                    else if (f.X == x + 1 && f.Y == y + 1)
+                        downLeft = true;
+                    else if (f.X == x + 1 && f.Y == y - 1)
+                        upLeft = true;
+                    else if (f.X == x && f.Y == y)
+                        value = 10;
+                }
+            }
+            if (up)
+                value++;
+            if (right)
+                value++;
+            if (left)
+                value++;
+            if (down)
+                value++;
+            if (upRight)
+                value++;
+            if (downRight)
+                value++;
+            if (downLeft)
+                value++;
+            if (upLeft)
+                value++;
+            return value;
+        }
         /// <summary>
         /// Calculate a Room, Check if its free, 
         /// </summary>
@@ -424,50 +520,195 @@ namespace Mazer
             #region example
             /*
              *  New Room; 
-             *  OL        OR 
+             *  UL        UR 
              *  h|FFFFFFFFF
              *  i|FFFFFFFFF
              *  g|FFFFFFFFF
              *  h|FFFFFFFFF
              *  t|FFFFFFFFF
              *   X--------Y
-             *  UL        UR
+             *  DL        DR
              *     with
              */
-            /*+
-            *     -1 -1 UpLeft        +0 -1 Up       +1 -1 UpRight  
-            *     -1 +0 Left          +0 +0 Center   +1 +0 Right    
-            *     -1 +1 DownLeft      +0 +1 Down     +1 +1 DownRight
+            /*    
+            *                             Dir 3
+            *         x  y                x  y           x  y
+            *        -1 -1 UpLeft        +0 -1 Up       +1 -1 UpRight  
+            * Dir 2  -1 +0 Left          +0 +0 Center   +1 +0 Right     Dir 4
+            *        -1 +1 DownLeft      +0 +1 Down     +1 +1 DownRight
+            *                             Dir 1
             */
             #endregion
-            Point OR, UR, OL, UL;
-            #region Turn Basics
+            Point UpRight, DownRight, UpLelft, DownLeft;
+            Point Center;
+            #region Set Basics
+            #region All = 0
+            UpLelft = new Point(x, y);
+            UpRight = new Point(x, y);
+            DownRight = new Point(x, y);
+            DownLeft = new Point(x, y);
+            #endregion
             switch (dir)
             {
                 case 1:
-                    UL = new Point(x - (with / 2) - with % 2, y);
-                    UR = new Point(UL.X + with, y);
-                    OL = new Point(UL.X, UL.Y - hight);
-                    OR = new Point(UL.X + with, UL.Y + hight);
+                    DownLeft = new Point(x - (with / 2), y);
+                    DownRight = new Point(DownLeft.X + with, DownLeft.Y);
+                    UpLelft = new Point(DownLeft.X, DownLeft.Y - hight);
+                    UpRight = new Point(DownLeft.X + with, DownLeft.Y - hight);
+                    Center = new Point(UpLelft.X + (with / 2) + (with % 2), UpLelft.X + (hight / 2) + (hight % 2));
                     break;
                 case 2:
-                    OL = new Point(x, y - (with / 2) - with % 2);
-                    UL = new Point(x, OL.Y + hight);
-                    UR = new Point(UL.X + with, OL.Y - hight);
-                    OR = new Point(UL.X + with, UL.Y + hight);
+                    DownLeft = new Point(x, y - (with / 2));
+                    DownRight = new Point(DownLeft.X + hight, DownLeft.Y);
+                    UpLelft = new Point(DownLeft.X, DownLeft.Y - with);
+                    UpRight = new Point(DownLeft.X + with, DownLeft.Y - with);
+                    Center = new Point(UpLelft.X + (hight / 2) + (hight % 2), UpLelft.X + (with / 2) + (with % 2));
                     break;
                 case 3:
-                    UL = new Point(x - (with / 2) - (with % 2) + hight, y);
-                    UR = new Point(UL.X + with, y);
-                    OL = new Point(UL.X, UL.Y - hight);
-                    OR = new Point(UL.X + with, UL.Y + hight);
+                    DownLeft = new Point(x - (with / 2), y + hight);
+                    DownRight = new Point(DownLeft.X + with, DownLeft.Y);
+                    UpLelft = new Point(DownLeft.X, DownLeft.Y - hight);
+                    UpRight = new Point(DownLeft.X + with, DownLeft.Y - hight);
+                    Center = new Point(UpLelft.X + (with / 2) + (with % 2), UpLelft.X + (hight / 2) + (hight % 2));
                     break;
                 case 4:
-                    UL = new Point(x - (with / 2) - with % 2, y);
-                    UR = new Point(UL.X + with, y);
-                    OL = new Point(UL.X, UL.Y - hight);
-                    OR = new Point(UL.X + with, UL.Y + hight);
+                    DownLeft = new Point(x - hight, y + (with / 2));
+                    DownRight = new Point(DownLeft.X + hight, DownLeft.Y);
+                    UpLelft = new Point(DownLeft.X, DownLeft.Y - with);
+                    UpRight = new Point(DownLeft.X + with, DownLeft.Y - with);
+                    Center = new Point(UpLelft.X + (hight / 2) + (hight % 2), UpLelft.X + (with / 2) + (with % 2));
                     break;
+                default:
+                    DownLeft = new Point(x - (with / 2), y);
+                    DownRight = new Point(DownLeft.X + with, DownLeft.Y);
+                    UpLelft = new Point(DownLeft.X, DownLeft.Y - hight);
+                    UpRight = new Point(DownLeft.X + with, DownLeft.Y - hight);
+                    Center = new Point(UpLelft.X + (with / 2) + (with % 2), UpLelft.X + (hight / 2) + (hight % 2));
+                    break;
+            }
+            int XMax = DownRight.X - DownLeft.X;
+            int YMax = DownLeft.Y - UpLelft.Y;
+            #region Check Region
+            if (surroundingPathDedect(UpRight.X, UpRight.Y) >= 10)
+                return value;
+            if (surroundingPathDedect(DownRight.X, DownRight.Y) >= 10)
+                return value;
+            if (surroundingPathDedect(UpLelft.X, UpLelft.Y) >= 10)
+                return value;
+            if (surroundingPathDedect(DownLeft.X, DownLeft.Y) >= 10)
+                return value;
+            #endregion
+            #endregion
+            #region Set Fields
+            for (int X = 0; X < XMax; ++X)
+            {
+                for (int Y = 0; Y < YMax; ++Y)
+                {
+                    value.Add(new Field(DownLeft.X - X, DownRight.Y - Y));
+                }
+            }
+            #endregion
+            #region Check Space for Room
+            foreach (Field f in value)
+            {
+                if (surrounding(f.X, f.Y) >= 10)
+                {
+                    value.Clear();
+                    return value;
+                }
+            }
+            #endregion
+            #region RoomTypes
+            switch (type)
+            {
+                case RoomTypes.SaveRoom:
+                    break;
+                case RoomTypes.NormalRoom:
+                    break;
+                case RoomTypes.MSpawnerRoom:
+                    break;
+                case RoomTypes.BossRoom:
+                    break;
+            }
+            #endregion
+            #region Room Flags
+            foreach (RoomFlags rf in flags)
+            {
+                switch (rf)
+                {
+                    case RoomFlags.ConectingEdges:
+                        #region ConnectiongEdges
+                        value.Add(new Field(UpLelft.X - 1, UpLelft.Y));
+                        value.Add(new Field(UpLelft.X, UpLelft.Y - 1));
+                        value.Add(new Field(DownRight.X - 1, DownRight.Y));
+                        value.Add(new Field(DownRight.X, DownRight.Y + 1));
+                        value.Add(new Field(UpRight.X + 1, UpRight.Y));
+                        value.Add(new Field(UpRight.X, UpRight.Y - 1));
+                        value.Add(new Field(DownLeft.X + 1, DownLeft.Y));
+                        value.Add(new Field(DownLeft.X, DownLeft.Y + 1));
+                        break;
+                        #endregion
+                    case RoomFlags.CrossRoadsBig:
+                        #region CrossRoadsBig
+                        for (int i = 0; i < 4; ++i) //dir 3
+                        {
+                            value.Add(new Field(Center.X, Center.Y - i - (with / 2)));
+                        }
+                        for (int i = 0; i < 4; ++i) //dir 4
+                        {
+                            value.Add(new Field(Center.X + i + (hight / 2), Center.Y));
+                        }
+                        for (int i = 0; i < 4; ++i) //dir 1
+                        {
+                            value.Add(new Field(Center.X, Center.Y + i + (with / 2)));
+                        }
+                        for (int i = 0; i < 4; ++i) //dir 2
+                        {
+                            value.Add(new Field(Center.X - i - (hight / 2), Center.Y));
+                        }
+                        break;
+                        #endregion
+                    case RoomFlags.CrossRoadsSmall:
+                        #region CrossRoadsSmall
+                        for (int i = 0; i < 2; ++i) //dir 3
+                        {
+                            value.Add(new Field(Center.X, Center.Y - i - (with / 2)));
+                        }
+                        for (int i = 0; i < 2; ++i) //dir 4
+                        {
+                            value.Add(new Field(Center.X + i + (hight / 2), Center.Y));
+                        }
+                        for (int i = 0; i < 2; ++i) //dir 1
+                        {
+                            value.Add(new Field(Center.X, Center.Y + i + (with / 2)));
+                        }
+                        for (int i = 0; i < 2; ++i) //dir 2
+                        {
+                            value.Add(new Field(Center.X - i - (hight / 2), Center.Y));
+                        }
+                        break;
+                        #endregion
+                    case RoomFlags.HasCoins:
+                        #region HasCoins
+                        break;
+                        #endregion
+                    case RoomFlags.HasEnergy:
+                        #region HasEnergy
+                        break;
+                        #endregion
+                    case RoomFlags.HasHelper:
+                        #region HasHelper
+                        break;
+                        #endregion
+                    case RoomFlags.HasMSpawner:
+                        #region HasMSpawner
+                        break;
+                        #endregion
+                    case RoomFlags.Traped:
+                        #region Traped
+                        break;
+                        #endregion
+                }
             }
             #endregion
             return value;

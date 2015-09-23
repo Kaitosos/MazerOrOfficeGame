@@ -137,10 +137,8 @@ namespace Mazer
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            //        spriteBatch.Begin(SpriteSortMode.Deferred,SpriteBlendMode.AlphaBlend SaveStateMode.None, camera.GetMatrix());
+            //spriteBatch.Begin(SpriteSortMode.Deferred,SpriteBlendMode.AlphaBlend SaveStateMode.None, camera.GetMatrix());
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, this.camera.GetMatrix());
-
             #region Pauseable
             if (!pause)
             {
@@ -309,7 +307,7 @@ namespace Mazer
             if (showMap)
             {
                 camera.Zoom = 0.05f;
-                camera.position = new Vector2(Data.Windowsize * 5, Data.Windowsize * 5);
+                camera.position = new Vector2(Data.Windowsize * 10, Data.Windowsize * 10);
             }
             else
             {

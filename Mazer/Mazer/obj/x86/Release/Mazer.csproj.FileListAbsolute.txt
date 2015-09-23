@@ -13,7 +13,6 @@ C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Rel
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Mazer.exe
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Mazer.pdb
-C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Mazer.csprojResolveAssemblyReference.cache
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.dll
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.Game.dll
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.GamerServices.dll
@@ -25,3 +24,4 @@ C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Rel
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Mazer.exe.config
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Build.dll
 C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\bin\x86\Release\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Mazer\Mazer\obj\x86\Release\Mazer.csprojResolveAssemblyReference.cache
