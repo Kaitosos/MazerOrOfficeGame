@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace Mazer
+namespace Game
 {
     class Field
     {
@@ -98,6 +98,11 @@ namespace Mazer
                 return true;
             }
             return false;
+        }
+
+        public void Start()
+        {
+
         }
     }
 }

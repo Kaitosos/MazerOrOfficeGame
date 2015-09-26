@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mazer
+namespace Game
 {
     public enum FieldTypes
     {
@@ -49,5 +49,12 @@ namespace Mazer
         HasHelper,
         None,
 
+    }
+
+    public enum WorldItemType
+    {
+        Enemy,
+        EnemyBullet,
+        PlayerBullet
     }
 }

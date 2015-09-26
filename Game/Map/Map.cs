@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Mazer
+namespace Game
 {
     class Map
     {
@@ -27,8 +27,6 @@ namespace Mazer
         public int CoinsCount;
         public bool Energy;
         public int EnergyCount;
-
-
 
         public Map(int seed, int size, int level)
         {
@@ -95,6 +93,79 @@ namespace Mazer
                 if (Vector2.Distance(playerOriginV2, new Vector2(f.Hitbox.Center.X, f.Hitbox.Center.Y)) <= Data.BufferDistance)
                     this.checkField.Add(f);
             }
+        }
+
+        public void Start()
+        {
+            foreach(Field f in field)
+            {
+                f.Start();
+            }
+        }
+
+        public void Draw(SpriteBatch sb, Texture2D tex, bool all)
+        {
+            if (all)
+            {
+                foreach (Field f in field)
+                {
+                    if (f != null)
+                    {
+                        switch (f.Type)
+                        {
+                            case FieldTypes.Path:
+                                sb.Draw(tex, f.Hitbox, Color.Gray);
+                                break;
+                            case FieldTypes.Spawn:
+                                sb.Draw(tex, f.Hitbox, Color.DarkGray);
+                                break;
+                            case FieldTypes.Destination:
+                                sb.Draw(tex, f.Hitbox, Color.LimeGreen);
+                                break;
+                            case FieldTypes.Helper:
+                                sb.Draw(tex, f.Hitbox, Color.Blue);
+                                break;
+                            case FieldTypes.Energy:
+                                sb.Draw(tex, f.Hitbox, Color.CornflowerBlue);
+                                break;
+                            case FieldTypes.Coin:
+                                sb.Draw(tex, f.Hitbox, Color.Gold);
+                                break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (Field f in checkField)
+                {
+                    if (f != null)
+                    {
+                        switch (f.Type)
+                        {
+                            case FieldTypes.Path:
+                                sb.Draw(tex, f.Hitbox, Color.Gray);
+                                break;
+                            case FieldTypes.Spawn:
+                                sb.Draw(tex, f.Hitbox, Color.DarkGray);
+                                break;
+                            case FieldTypes.Destination:
+                                sb.Draw(tex, f.Hitbox, Color.LimeGreen);
+                                break;
+                            case FieldTypes.Helper:
+                                sb.Draw(tex, f.Hitbox, Color.Blue);
+                                break;
+                            case FieldTypes.Energy:
+                                sb.Draw(tex, f.Hitbox, Color.CornflowerBlue);
+                                break;
+                            case FieldTypes.Coin:
+                                sb.Draw(tex, f.Hitbox, Color.Gold);
+                                break;
+                        }
+                    }
+                }
+            }
+
         }
 
         private void createMap(int level)
@@ -714,69 +785,5 @@ namespace Mazer
             return value;
         }
 
-        public void Draw(SpriteBatch sb, Texture2D tex, bool all)
-        {
-            if (all)
-            {
-                foreach (Field f in field)
-                {
-                    if (f != null)
-                    {
-                        switch (f.Type)
-                        {
-                            case FieldTypes.Path:
-                                sb.Draw(tex, f.Hitbox, Color.Gray);
-                                break;
-                            case FieldTypes.Spawn:
-                                sb.Draw(tex, f.Hitbox, Color.DarkGray);
-                                break;
-                            case FieldTypes.Destination:
-                                sb.Draw(tex, f.Hitbox, Color.LimeGreen);
-                                break;
-                            case FieldTypes.Helper:
-                                sb.Draw(tex, f.Hitbox, Color.Blue);
-                                break;
-                            case FieldTypes.Energy:
-                                sb.Draw(tex, f.Hitbox, Color.CornflowerBlue);
-                                break;
-                            case FieldTypes.Coin:
-                                sb.Draw(tex, f.Hitbox, Color.Gold);
-                                break;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                foreach (Field f in checkField)
-                {
-                    if (f != null)
-                    {
-                        switch (f.Type)
-                        {
-                            case FieldTypes.Path:
-                                sb.Draw(tex, f.Hitbox, Color.Gray);
-                                break;
-                            case FieldTypes.Spawn:
-                                sb.Draw(tex, f.Hitbox, Color.DarkGray);
-                                break;
-                            case FieldTypes.Destination:
-                                sb.Draw(tex, f.Hitbox, Color.LimeGreen);
-                                break;
-                            case FieldTypes.Helper:
-                                sb.Draw(tex, f.Hitbox, Color.Blue);
-                                break;
-                            case FieldTypes.Energy:
-                                sb.Draw(tex, f.Hitbox, Color.CornflowerBlue);
-                                break;
-                            case FieldTypes.Coin:
-                                sb.Draw(tex, f.Hitbox, Color.Gold);
-                                break;
-                        }
-                    }
-                }
-            }
-
-        }
     }
 }

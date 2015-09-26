@@ -1,0 +1,6 @@
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Game\bin\x86\Release\Game.dll
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Game\bin\x86\Release\Game.pdb
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Game\obj\x86\Release\Game.csprojResolveAssemblyReference.cache
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Game\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Game\obj\x86\Release\Game.dll
+C:\Users\JemandAnders\Documents\GitHub\MazerOrOfficeGame\Game\obj\x86\Release\Game.pdb

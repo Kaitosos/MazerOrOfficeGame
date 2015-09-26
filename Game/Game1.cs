@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace Mazer
+namespace Game
 {
     /// <summary>
     /// This is the main type for your game
@@ -69,6 +69,7 @@ namespace Mazer
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             Data.SetNull();
+            World.CreateWorld();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             tex = Content.Load<Texture2D>("pix");
             font = Content.Load<SpriteFont>("sf");

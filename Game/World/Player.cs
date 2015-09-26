@@ -6,12 +6,50 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Mazer
+namespace Game
 {
-    class Player
+    class Player : IWorldItem
     {
         public Rectangle Hitbox { get { return this.hitbox; } }
         public Vector2 Position { get { return new Vector2(position.X, position.Y); } }
+        public Color Color
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+        public float Size
+        {
+            get { throw new NotImplementedException(); }
+        }
+        public int TouchDamage
+        {
+            get { throw new NotImplementedException(); }
+        }
+        public int LivePoints
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+        public List<IWorldItem> TouchedThisFrame
+        {
+            get { throw new NotImplementedException(); }
+        }
+        public TimeSpan LiveTime
+        {
+            get { throw new NotImplementedException(); }
+        }
 
         private Rectangle hitbox;
         private Point position;
@@ -70,6 +108,11 @@ namespace Mazer
         public void Draw(SpriteBatch sb, Texture2D tex)
         {
             sb.Draw(tex, hitbox, Color.LightBlue);
+        }
+
+        public void Touch(IWorldItem partner)
+        {
+            throw new NotImplementedException();
         }
     }
 }
