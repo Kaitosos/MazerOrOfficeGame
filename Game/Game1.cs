@@ -143,7 +143,7 @@ namespace Game
             #region Pauseable
             if (!pause)
             {
-                this.map.Draw(spriteBatch, tex, showMap);
+                this.map.Draw(spriteBatch, tex, showMap, font);
                 this.player.Draw(spriteBatch, tex);
                 #region Draw Helper
                 if (map.Helper || debug && showMap)

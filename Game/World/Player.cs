@@ -16,20 +16,20 @@ namespace Game
         {
             get
             {
-                throw new NotImplementedException();
+                return this.color;
             }
             set
             {
-                throw new NotImplementedException();
+                this.color = value;
             }
         }
         public float Size
         {
-            get { throw new NotImplementedException(); }
+            get { return Data.BlockSize / Data.PlayerRelationToBlocksize; }
         }
         public int TouchDamage
         {
-            get { throw new NotImplementedException(); }
+            get { return this.touchDamage; }
         }
         public int LivePoints
         {
@@ -44,23 +44,71 @@ namespace Game
         }
         public List<IWorldItem> TouchedThisFrame
         {
-            get { throw new NotImplementedException(); }
+            get { return this.touchedThisFrame; }
         }
         public TimeSpan LiveTime
         {
-            get { throw new NotImplementedException(); }
+            get { return TimeSpan.MaxValue; }
+        }
+        public WorldItemType Type
+        {
+            get { return WorldItemType.Player; }
         }
 
+        private Color color;
         private Rectangle hitbox;
         private Point position;
         private double last;
+        private int touchDamage;
+        private int livePoints;
+        private List<IWorldItem> touchedThisFrame;
 
         public Player()
         {
             this.position = new Point(0, 0);
-            this.hitbox = new Rectangle(0, 0, 32, 32);
+            this.hitbox = new Rectangle(0, 0, Data.BlockSize / Data.PlayerRelationToBlocksize, Data.BlockSize / Data.PlayerRelationToBlocksize);
             this.updateHitbox();
             this.last = 0f;
+            this.touchDamage = 10;
+            this.livePoints = 100;
+            color = Color.LightBlue;
+            this.touchedThisFrame = new List<IWorldItem>();
+        }
+
+        public void Update(GameTime gt)
+        {
+            this.touchedThisFrame.Clear();
+            if (gt.TotalGameTime.TotalMilliseconds - last >= 33)
+            {
+                this.updateInput();
+                last = gt.TotalGameTime.TotalMilliseconds;
+            }
+        }
+
+        public void Draw(SpriteBatch sb, Texture2D tex)
+        {
+            sb.Draw(tex, hitbox, color);
+        }
+
+        public void Touch(IWorldItem partner)
+        {
+
+            switch (partner.Type)
+            {
+                case WorldItemType.Spawner:
+                case WorldItemType.EnemyBullet:
+                case WorldItemType.Enemy: 
+                    if (!touchedThisFrame.Contains(partner))
+                    {
+                        touchedThisFrame.Add(partner);
+                        partner.TouchedThisFrame.Add(this);
+                        partner.LivePoints -= this.touchDamage;
+                        this.livePoints -= partner.TouchDamage;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void updateHitbox()
@@ -68,6 +116,7 @@ namespace Game
             this.hitbox.X = this.position.X;
             this.hitbox.Y = this.position.Y;
         }
+
         private void updateInput()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.W))
@@ -96,23 +145,9 @@ namespace Game
             }
         }
 
-        public void Update(GameTime gt)
-        {
-            if (gt.TotalGameTime.TotalMilliseconds - last >= 33)
-            {
-                this.updateInput();
-                last = gt.TotalGameTime.TotalMilliseconds;
-            }
-        }
-
-        public void Draw(SpriteBatch sb, Texture2D tex)
-        {
-            sb.Draw(tex, hitbox, Color.LightBlue);
-        }
-
-        public void Touch(IWorldItem partner)
-        {
-            throw new NotImplementedException();
-        }
+        public void Death()
+        { }
+        public void Draw(SpriteBatch sb, Texture2D tex, SpriteFont font)
+        { }
     }
 }

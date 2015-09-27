@@ -19,13 +19,14 @@ namespace Game
         public static int BufferTime;
         public static int BufferDistance;
         public static int BlockPerLevel;
-        public static int Size;
+        public static int BlockSize;
         public static int BranchCount;
         public static int LevelTilBlockPerLevelResize;
         public static int BlockPerLevelAdd;
         public static int ReBufferTravelDistance;
         public static int ForwardCreatedMaps;
         public static int PlayerBulletsize;
+        public static int PlayerRelationToBlocksize;
         public static Queue<Map> NextMaps;
 
         public static void SetNull()
@@ -40,9 +41,9 @@ namespace Game
             Data.LastSeed = 0;
             Data.Windowsize = 256;
             Data.BlockPerLevel = 50;
-            Data.Size = 64;
             #endregion
             #region Player Passive Values
+            Data.BlockSize = 64;
             Data.BranchCount = 2;
             Data.BufferTime = 250;
             Data.BufferDistance = 1024;
@@ -51,6 +52,7 @@ namespace Game
             Data.ForwardCreatedMaps = 3;
             Data.PlayerBulletsize = 40;
             Data.ReBufferTravelDistance = BufferDistance - (Windowsize / 2);
+            Data.PlayerRelationToBlocksize = 2;
             #endregion
             #region Container
             Data.NextMaps = new Queue<Map>(ForwardCreatedMaps);

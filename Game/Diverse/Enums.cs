@@ -53,8 +53,19 @@ namespace Game
 
     public enum WorldItemType
     {
+        Player,
         Enemy,
         EnemyBullet,
-        PlayerBullet
+        PlayerBullet,
+        Spawner
+    }
+
+    public enum EnemyType
+    {
+        Archer,
+        Rouge,
+        Tank,
+        Healer,
+
     }
 }

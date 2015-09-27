@@ -103,7 +103,7 @@ namespace Game
             }
         }
 
-        public void Draw(SpriteBatch sb, Texture2D tex, bool all)
+        public void Draw(SpriteBatch sb, Texture2D tex, bool all, SpriteFont font)
         {
             if (all)
             {

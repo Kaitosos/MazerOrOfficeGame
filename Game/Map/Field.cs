@@ -14,6 +14,7 @@ namespace Game
         public Field Connection { get { return this.connection; } }
         public Rectangle Hitbox { get { return this.hitbox; } }
 
+        private MonsterSpawner Spawner;
         private int x,y;
         private FieldTypes type;
         private Field connection;
@@ -25,7 +26,7 @@ namespace Game
             this.y = y;
             this.type = FieldTypes.Path;
             this.connection = null;
-            this.hitbox = new Rectangle(x * Data.Size, y * Data.Size, Data.Size, Data.Size);
+            this.hitbox = new Rectangle(x * Data.BlockSize, y * Data.BlockSize, Data.BlockSize, Data.BlockSize);
         }
         public Field(int x, int y, FieldTypes type)
         {
@@ -33,7 +34,7 @@ namespace Game
             this.y = y;
             this.type = type;
             this.connection = null;
-            this.hitbox = new Rectangle(x * Data.Size, y * Data.Size, Data.Size, Data.Size);
+            this.hitbox = new Rectangle(x * Data.BlockSize, y * Data.BlockSize, Data.BlockSize, Data.BlockSize);
         }
         public Field(int x, int y, FieldTypes type, Field Connection)
         {
@@ -41,7 +42,7 @@ namespace Game
             this.y = y;
             this.type = type;
             this.connection = null;
-            this.hitbox = new Rectangle(x * Data.Size, y * Data.Size, Data.Size, Data.Size);
+            this.hitbox = new Rectangle(x * Data.BlockSize, y * Data.BlockSize, Data.BlockSize, Data.BlockSize);
         }
 
         public void Use(Map parrent)
