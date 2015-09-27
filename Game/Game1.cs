@@ -111,6 +111,7 @@ namespace Game
                 camera.Update(player.Position, 32, 64, 64, 64);
                 if (gameTime.TotalGameTime.TotalMilliseconds - last >= 150)
                 {
+                    World.Update(gameTime);
                     last = gameTime.TotalGameTime.TotalMilliseconds;
                     if (!map.OnPath(player.Hitbox))
                     {
@@ -145,6 +146,7 @@ namespace Game
             {
                 this.map.Draw(spriteBatch, tex, showMap, font);
                 this.player.Draw(spriteBatch, tex);
+                World.Draw(spriteBatch, tex, font);
                 #region Draw Helper
                 if (map.Helper || debug && showMap)
                 {

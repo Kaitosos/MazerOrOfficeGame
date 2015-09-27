@@ -56,12 +56,14 @@ namespace Game
         }
 
         private Color color;
+        private bool hurt;
         private Rectangle hitbox;
         private Point position;
         private double last;
         private int touchDamage;
         private int livePoints;
         private List<IWorldItem> touchedThisFrame;
+        private KeyboardState oldState;
 
         public Player()
         {
@@ -71,12 +73,15 @@ namespace Game
             this.last = 0f;
             this.touchDamage = 10;
             this.livePoints = 100;
-            color = Color.LightBlue;
+            this.color = GameColors.PNormal;
+            this.hurt = false;
             this.touchedThisFrame = new List<IWorldItem>();
+            oldState = Keyboard.GetState();
         }
 
         public void Update(GameTime gt)
         {
+            this.hurt = false;
             this.touchedThisFrame.Clear();
             if (gt.TotalGameTime.TotalMilliseconds - last >= 33)
             {
@@ -143,10 +148,28 @@ namespace Game
                 Data.TraveldDistance++;
                 updateHitbox();
             }
+            if(Keyboard.GetState().IsKeyDown(Keys.Up) && oldState.IsKeyUp(Keys.Up))
+            {
+                World.WorldList.Add(new Bullet(this.Position, new Vector2(0, -8), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Right) && oldState.IsKeyUp(Keys.Right))
+            {
+                World.WorldList.Add(new Bullet(this.Position, new Vector2(-8, 0), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Left) && oldState.IsKeyUp(Keys.Left))
+            {
+                World.WorldList.Add(new Bullet(this.Position, new Vector2(8, 0), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Down) && oldState.IsKeyUp(Keys.Down))
+            {
+                World.WorldList.Add(new Bullet(this.Position, new Vector2(0, 8), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
+            }
+            oldState = Keyboard.GetState();
         }
 
         public void Death()
         { }
+
         public void Draw(SpriteBatch sb, Texture2D tex, SpriteFont font)
         { }
     }

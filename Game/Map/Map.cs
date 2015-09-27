@@ -114,22 +114,22 @@ namespace Game
                         switch (f.Type)
                         {
                             case FieldTypes.Path:
-                                sb.Draw(tex, f.Hitbox, Color.Gray);
+                                sb.Draw(tex, f.Hitbox, GameColors.FPath);
                                 break;
                             case FieldTypes.Spawn:
-                                sb.Draw(tex, f.Hitbox, Color.DarkGray);
+                                sb.Draw(tex, f.Hitbox, GameColors.FSpawn);
                                 break;
                             case FieldTypes.Destination:
-                                sb.Draw(tex, f.Hitbox, Color.LimeGreen);
+                                sb.Draw(tex, f.Hitbox, GameColors.FDestination);
                                 break;
                             case FieldTypes.Helper:
-                                sb.Draw(tex, f.Hitbox, Color.Blue);
+                                sb.Draw(tex, f.Hitbox, GameColors.FHelper);
                                 break;
                             case FieldTypes.Energy:
-                                sb.Draw(tex, f.Hitbox, Color.CornflowerBlue);
+                                sb.Draw(tex, f.Hitbox, GameColors.FEnergy);
                                 break;
                             case FieldTypes.Coin:
-                                sb.Draw(tex, f.Hitbox, Color.Gold);
+                                sb.Draw(tex, f.Hitbox, GameColors.FCoin);
                                 break;
                         }
                     }

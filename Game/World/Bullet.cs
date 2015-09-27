@@ -80,6 +80,22 @@ namespace Game
             this.livePoints = livePoints;
             this.liveTime = liveTime;
             this.type = bulletType;
+            switch(bulletType)
+            {
+                case WorldItemType.EnemyBullet:
+                    this.type = bulletType;
+                    this.color = GameColors.BEnemy;
+                    break;
+                case WorldItemType.PlayerBullet:
+                    this.type = bulletType;
+                    this.color = GameColors.BPlayer;
+                    break;
+                default:
+                    this.type = WorldItemType.Enemy;
+                    this.color = Color.Black;
+                    this.livePoints = -1;
+                    break;
+            }
         }
 
         public void Update(GameTime gametime)

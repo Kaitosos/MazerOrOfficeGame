@@ -32,7 +32,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>Maser %28not TM%29</ProductName>
     <PublisherName>Kaitos not INC.</PublisherName>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>0.2.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

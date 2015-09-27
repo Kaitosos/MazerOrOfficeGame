@@ -14,7 +14,7 @@ namespace Game
         public Field Connection { get { return this.connection; } }
         public Rectangle Hitbox { get { return this.hitbox; } }
 
-        private MonsterSpawner Spawner;
+        private MonsterSpawner spawner;
         private int x,y;
         private FieldTypes type;
         private Field connection;
@@ -27,6 +27,7 @@ namespace Game
             this.type = FieldTypes.Path;
             this.connection = null;
             this.hitbox = new Rectangle(x * Data.BlockSize, y * Data.BlockSize, Data.BlockSize, Data.BlockSize);
+            this.spawner = null;
         }
         public Field(int x, int y, FieldTypes type)
         {
@@ -34,15 +35,17 @@ namespace Game
             this.y = y;
             this.type = type;
             this.connection = null;
-            this.hitbox = new Rectangle(x * Data.BlockSize, y * Data.BlockSize, Data.BlockSize, Data.BlockSize);
+            this.hitbox = new Rectangle(x * Data.BlockSize, y * Data.BlockSize, Data.BlockSize, Data.BlockSize); 
+            this.spawner = null;
         }
         public Field(int x, int y, FieldTypes type, Field Connection)
         {
             this.x = x;
             this.y = y;
             this.type = type;
-            this.connection = null;
+            this.connection = Connection;
             this.hitbox = new Rectangle(x * Data.BlockSize, y * Data.BlockSize, Data.BlockSize, Data.BlockSize);
+            this.spawner = null;
         }
 
         public void Use(Map parrent)
@@ -103,7 +106,11 @@ namespace Game
 
         public void Start()
         {
-
+            if(type == FieldTypes.Spawner)
+            {
+                this.spawner = new MonsterSpawner();
+                World.WorldList.Add(spawner);
+            }
         }
     }
 }
