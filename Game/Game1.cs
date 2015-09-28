@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace Mazer
+namespace Game
 {
     /// <summary>
     /// This is the main type for your game
@@ -34,7 +34,7 @@ namespace Mazer
         /// <summary>
         /// Important set false before Publish Game;
         /// </summary>
-        bool debug = false;
+        bool debug = true;
 
         public Game1()
         {
@@ -69,10 +69,12 @@ namespace Mazer
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             Data.SetNull();
+            World.CreateWorld();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             tex = Content.Load<Texture2D>("pix");
             font = Content.Load<SpriteFont>("sf");
             map = new Map(DateTime.Now.Second * DateTime.Now.Millisecond * DateTime.Now.Hour, Data.BlockPerLevel, 0);
+            Data.Levels += 1;
             oks = Keyboard.GetState();
             pause = false;
             showMap = false;
@@ -108,6 +110,7 @@ namespace Mazer
             {
                 player.Update(gameTime);
                 camera.Update(player.Position, 32, 64, 64, 64);
+                World.Update(gameTime);
                 if (gameTime.TotalGameTime.TotalMilliseconds - last >= 150)
                 {
                     last = gameTime.TotalGameTime.TotalMilliseconds;
@@ -137,17 +140,16 @@ namespace Mazer
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            //        spriteBatch.Begin(SpriteSortMode.Deferred,SpriteBlendMode.AlphaBlend SaveStateMode.None, camera.GetMatrix());
+            //spriteBatch.Begin(SpriteSortMode.Deferred,SpriteBlendMode.AlphaBlend SaveStateMode.None, camera.GetMatrix());
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, null, this.camera.GetMatrix());
-
             #region Pauseable
             if (!pause)
             {
-                this.map.Draw(spriteBatch, tex, showMap);
+                this.map.Draw(spriteBatch, tex, showMap, font);
                 this.player.Draw(spriteBatch, tex);
+                World.Draw(spriteBatch, tex, font);
                 #region Draw Helper
-                if (map.Helper)
+                if (map.Helper || debug && showMap)
                 {
                     DrawLine(spriteBatch, new Vector2(player.Hitbox.Center.X, player.Hitbox.Center.Y), new Vector2(map.Destination.Hitbox.Center.X, map.Destination.Hitbox.Center.Y));
                 }
@@ -308,8 +310,10 @@ namespace Mazer
             showMap = !showMap;
             if (showMap)
             {
-                camera.Zoom = 0.1f;
-                camera.position = new Vector2(Data.Windowsize * 5, Data.Windowsize * 5);
+                //camera.Zoom = 0.05f;
+                //camera.position = new Vector2(Data.Windowsize * 10, Data.Windowsize * 10);
+                camera.Zoom = 0.2f;
+                camera.position = new Vector2(Data.Windowsize * 2, Data.Windowsize * 2);
             }
             else
             {

@@ -5,7 +5,9 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mazer", "Mazer\Mazer\Mazer.csproj", "{04CF8276-F0ED-4015-A0AA-182111E278D3}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "MazerContent", "Mazer\MazerContent\MazerContent.contentproj", "{3E4F4697-6751-4AA4-A82B-F34C34BCBD62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazerContent", "Mazer\MazerContent\MazerContent.contentproj", "{3E4F4697-6751-4AA4-A82B-F34C34BCBD62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{B006D48B-BCB9-4F73-B3A6-77777F04407A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		{04CF8276-F0ED-4015-A0AA-182111E278D3}.Release|x86.Build.0 = Release|x86
 		{3E4F4697-6751-4AA4-A82B-F34C34BCBD62}.Debug|x86.ActiveCfg = Debug|x86
 		{3E4F4697-6751-4AA4-A82B-F34C34BCBD62}.Release|x86.ActiveCfg = Release|x86
+		{B006D48B-BCB9-4F73-B3A6-77777F04407A}.Debug|x86.ActiveCfg = Debug|x86
+		{B006D48B-BCB9-4F73-B3A6-77777F04407A}.Debug|x86.Build.0 = Debug|x86
+		{B006D48B-BCB9-4F73-B3A6-77777F04407A}.Release|x86.ActiveCfg = Release|x86
+		{B006D48B-BCB9-4F73-B3A6-77777F04407A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

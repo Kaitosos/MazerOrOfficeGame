@@ -1,0 +1,39 @@
+﻿MS1:
+	Player V
+	Levelgen V
+	Levelelemente V
+		Helper V
+		Energy V
+		Trap X
+		Spawn V
+		Destination V
+		Coins V
+	Input
+		Movement V
+		Save V
+		Load V
+		Resize V
+		Help V
+		Pause V
+MS2:
+	Option & Pause Screen
+		Energy
+			Attack (1 E)
+			Teleport 1 Field(3 E)
+			...
+		Coins
+			Showway (3 C)
+			Deffender (1 C)
+			Add5Energy (2 C)					
+	Player
+		Attack
+			ArrowKeys
+		Live
+		Skills
+			Teleport
+MS3:
+	Enemys
+		Attack
+		Move
+		Live
+		Spawner
