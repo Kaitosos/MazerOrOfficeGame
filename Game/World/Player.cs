@@ -150,19 +150,19 @@ namespace Game
             }
             if(Keyboard.GetState().IsKeyDown(Keys.Up) && oldState.IsKeyUp(Keys.Up))
             {
-                World.WorldList.Add(new Bullet(this.Position, new Vector2(0, -8), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
+                World.WorldList.Add(new Bullet(new Vector2(this.position.X + (this.Size / 2), this.position.Y + (this.Size / 2)), new Vector2(0, -8), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Right) && oldState.IsKeyUp(Keys.Right))
             {
-                World.WorldList.Add(new Bullet(this.Position, new Vector2(-8, 0), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
+                World.WorldList.Add(new Bullet(new Vector2(this.position.X + (this.Size / 2), this.position.Y + (this.Size / 2)), new Vector2(8, 0), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Left) && oldState.IsKeyUp(Keys.Left))
             {
-                World.WorldList.Add(new Bullet(this.Position, new Vector2(8, 0), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
+                World.WorldList.Add(new Bullet(new Vector2(this.position.X + (this.Size / 2), this.position.Y + (this.Size / 2)), new Vector2(-8, 0), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Down) && oldState.IsKeyUp(Keys.Down))
             {
-                World.WorldList.Add(new Bullet(this.Position, new Vector2(0, 8), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
+                World.WorldList.Add(new Bullet(new Vector2(this.position.X + (this.Size / 2), this.position.Y + (this.Size / 2)), new Vector2(0, 8), 8, 10, 5, new TimeSpan(0, 0, 20), WorldItemType.PlayerBullet));
             }
             oldState = Keyboard.GetState();
         }

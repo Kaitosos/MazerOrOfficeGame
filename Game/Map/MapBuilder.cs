@@ -13,7 +13,7 @@ namespace Game
                 if(Data.NextMaps.Count < Data.ForwardCreatedMaps)
                 {
                     int level = (Data.Levels + Data.NextMaps.Count + 1);
-                    int blocks = (Data.BlockPerLevel + (level / Data.LevelTilBlockPerLevelResize) * Data.BlockPerLevelAdd) * level;
+                    int blocks = (Data.BlockPerLevel + (level / Data.LevelTilBlockPerLevelResize) * Data.BlockPerLevelAdd) * (level + 1);
                     Data.NextMaps.Enqueue(new Map(DateTime.Now.Second * DateTime.Now.Millisecond * DateTime.Now.Hour, blocks, level));
                 }
                 else

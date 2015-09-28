@@ -74,6 +74,7 @@ namespace Game
             tex = Content.Load<Texture2D>("pix");
             font = Content.Load<SpriteFont>("sf");
             map = new Map(DateTime.Now.Second * DateTime.Now.Millisecond * DateTime.Now.Hour, Data.BlockPerLevel, 0);
+            Data.Levels += 1;
             oks = Keyboard.GetState();
             pause = false;
             showMap = false;
@@ -109,9 +110,9 @@ namespace Game
             {
                 player.Update(gameTime);
                 camera.Update(player.Position, 32, 64, 64, 64);
+                World.Update(gameTime);
                 if (gameTime.TotalGameTime.TotalMilliseconds - last >= 150)
                 {
-                    World.Update(gameTime);
                     last = gameTime.TotalGameTime.TotalMilliseconds;
                     if (!map.OnPath(player.Hitbox))
                     {
@@ -309,8 +310,10 @@ namespace Game
             showMap = !showMap;
             if (showMap)
             {
-                camera.Zoom = 0.05f;
-                camera.position = new Vector2(Data.Windowsize * 10, Data.Windowsize * 10);
+                //camera.Zoom = 0.05f;
+                //camera.position = new Vector2(Data.Windowsize * 10, Data.Windowsize * 10);
+                camera.Zoom = 0.2f;
+                camera.position = new Vector2(Data.Windowsize * 2, Data.Windowsize * 2);
             }
             else
             {

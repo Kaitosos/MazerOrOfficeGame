@@ -34,6 +34,7 @@ namespace Game
             }
             foreach (IWorldItem iwi in del)
                 WorldList.Remove(iwi);
+            del.Clear();
             #endregion
             #region Collide
             for (int all = 0; all < WorldList.Count; ++all)

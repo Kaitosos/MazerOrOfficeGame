@@ -144,22 +144,22 @@ namespace Game
                         switch (f.Type)
                         {
                             case FieldTypes.Path:
-                                sb.Draw(tex, f.Hitbox, Color.Gray);
+                                sb.Draw(tex, f.Hitbox, GameColors.FPath);
                                 break;
                             case FieldTypes.Spawn:
-                                sb.Draw(tex, f.Hitbox, Color.DarkGray);
+                                sb.Draw(tex, f.Hitbox, GameColors.FSpawn);
                                 break;
                             case FieldTypes.Destination:
-                                sb.Draw(tex, f.Hitbox, Color.LimeGreen);
+                                sb.Draw(tex, f.Hitbox, GameColors.FDestination);
                                 break;
                             case FieldTypes.Helper:
-                                sb.Draw(tex, f.Hitbox, Color.Blue);
+                                sb.Draw(tex, f.Hitbox, GameColors.FHelper);
                                 break;
                             case FieldTypes.Energy:
-                                sb.Draw(tex, f.Hitbox, Color.CornflowerBlue);
+                                sb.Draw(tex, f.Hitbox, GameColors.FEnergy);
                                 break;
                             case FieldTypes.Coin:
-                                sb.Draw(tex, f.Hitbox, Color.Gold);
+                                sb.Draw(tex, f.Hitbox, GameColors.FCoin);
                                 break;
                         }
                     }
@@ -176,6 +176,7 @@ namespace Game
             int dir = 0;
             int ldir = 0;
             int count = 0;
+            int roomDistance = 0;
             bool newBranch = false;
             bool startedBranch = false;
             int maxLenght = 4 + (level / 2);
@@ -184,6 +185,9 @@ namespace Game
             int maxBranchSize = size / (level + Data.BranchCount);
             int ConnectionChance = 8 + (size / 2500) + (int)(level * level * 0.01f);//6 + (size / (250 + (level * 10)));
             int RoomCount = level / 5;
+            int StartRoomDistance = size / ((RoomCount * 3) + 1);
+            int DefaultMinRoomDistance = (size - StartRoomDistance) / ((RoomCount * 2) + 1);
+            roomDistance = StartRoomDistance;
             #endregion
             this.field[0] = new Field(posX, posY, FieldTypes.Spawn);
             this.start = this.field[0];
@@ -239,8 +243,8 @@ namespace Game
                 int surr = surroundingPathDedect(posX, posY);
                 if (surr <= 2 || startedBranch && surr <= 3)
                 {
-                    /*
-                    if (level >= 6 && i > 100 && RoomCount > 0)
+                    --roomDistance;
+                    if (level >= 6 && roomDistance <= 0 && RoomCount > 0)
                     {
                         List<Field> fields = createRoom(posX, posY, dir, 3, 3, i, size, RoomTypes.NormalRoom, new RoomFlags[] { RoomFlags.CrossRoadsBig });
                         if (fields.Count < size - i)
@@ -259,6 +263,7 @@ namespace Game
                                     ++i;
                                     field[i] = f;
                                 }
+                                roomDistance = DefaultMinRoomDistance;
                                 newBranch = true;
                                 --RoomCount;
                             }
@@ -270,10 +275,6 @@ namespace Game
                         count -= 1;
                         startedBranch = false;
                     }
-                        */
-                    field[i] = new Field(posX, posY);
-                    count -= 1;
-                    startedBranch = false;
                 }
                 else if (surr <= 6)
                 {
@@ -588,6 +589,8 @@ namespace Game
             List<Field> value = new List<Field>();
             if (maxArrayUsage - aktualArrayUsage < hight * with)
                 return value;
+            if (hight <= 2 || with <= 2)
+                return value;
             #region example
             /*
              *  New Room; 
@@ -626,35 +629,30 @@ namespace Game
                     DownRight = new Point(DownLeft.X + with, DownLeft.Y);
                     UpLelft = new Point(DownLeft.X, DownLeft.Y - hight);
                     UpRight = new Point(DownLeft.X + with, DownLeft.Y - hight);
-                    Center = new Point(UpLelft.X + (with / 2) + (with % 2), UpLelft.X + (hight / 2) + (hight % 2));
                     break;
                 case 2:
                     DownLeft = new Point(x, y - (with / 2));
                     DownRight = new Point(DownLeft.X + hight, DownLeft.Y);
                     UpLelft = new Point(DownLeft.X, DownLeft.Y - with);
                     UpRight = new Point(DownLeft.X + with, DownLeft.Y - with);
-                    Center = new Point(UpLelft.X + (hight / 2) + (hight % 2), UpLelft.X + (with / 2) + (with % 2));
                     break;
                 case 3:
                     DownLeft = new Point(x - (with / 2), y + hight);
                     DownRight = new Point(DownLeft.X + with, DownLeft.Y);
                     UpLelft = new Point(DownLeft.X, DownLeft.Y - hight);
                     UpRight = new Point(DownLeft.X + with, DownLeft.Y - hight);
-                    Center = new Point(UpLelft.X + (with / 2) + (with % 2), UpLelft.X + (hight / 2) + (hight % 2));
                     break;
                 case 4:
                     DownLeft = new Point(x - hight, y + (with / 2));
                     DownRight = new Point(DownLeft.X + hight, DownLeft.Y);
                     UpLelft = new Point(DownLeft.X, DownLeft.Y - with);
                     UpRight = new Point(DownLeft.X + with, DownLeft.Y - with);
-                    Center = new Point(UpLelft.X + (hight / 2) + (hight % 2), UpLelft.X + (with / 2) + (with % 2));
                     break;
                 default:
                     DownLeft = new Point(x - (with / 2), y);
                     DownRight = new Point(DownLeft.X + with, DownLeft.Y);
                     UpLelft = new Point(DownLeft.X, DownLeft.Y - hight);
                     UpRight = new Point(DownLeft.X + with, DownLeft.Y - hight);
-                    Center = new Point(UpLelft.X + (with / 2) + (with % 2), UpLelft.X + (hight / 2) + (hight % 2));
                     break;
             }
             int XMax = DownRight.X - DownLeft.X;
@@ -670,14 +668,16 @@ namespace Game
                 return value;
             #endregion
             #endregion
-            #region Set Fields
+            #region Set Fields & Center Point
             for (int X = 0; X < XMax; ++X)
             {
                 for (int Y = 0; Y < YMax; ++Y)
                 {
-                    value.Add(new Field(DownLeft.X - X, DownRight.Y - Y));
+                    value.Add(new Field(UpLelft.X + X, UpLelft.Y + Y));
                 }
             }
+            int centerPos = (value.Count / 2) - ((value.Count + 1) % 2);
+            Center = new Point(value[centerPos].X, value[centerPos].Y);
             #endregion
             #region Check Space for Room
             foreach (Field f in value)
@@ -723,19 +723,35 @@ namespace Game
                         #region CrossRoadsBig
                         for (int i = 0; i < 4; ++i) //dir 3
                         {
-                            value.Add(new Field(Center.X, Center.Y - i - (with / 2)));
+                            Field temp = new Field(Center.X, Center.Y - i - (with / 2));
+                            if (surrounding(temp.X, temp.Y) < 10)
+                                value.Add(temp);
+                            else
+                                break;
                         }
                         for (int i = 0; i < 4; ++i) //dir 4
                         {
-                            value.Add(new Field(Center.X + i + (hight / 2), Center.Y));
+                            Field temp = new Field(Center.X + i + (hight / 2), Center.Y);
+                            if (surrounding(temp.X, temp.Y) < 10)
+                                value.Add(temp);
+                            else
+                                break;
                         }
                         for (int i = 0; i < 4; ++i) //dir 1
                         {
-                            value.Add(new Field(Center.X, Center.Y + i + (with / 2)));
+                            Field temp = new Field(Center.X, Center.Y + i + (with / 2));
+                            if (surrounding(temp.X, temp.Y) < 10)
+                                value.Add(temp);
+                            else
+                                break;
                         }
                         for (int i = 0; i < 4; ++i) //dir 2
                         {
-                            value.Add(new Field(Center.X - i - (hight / 2), Center.Y));
+                            Field temp = new Field(Center.X - i - (hight / 2), Center.Y);
+                            if (surrounding(temp.X, temp.Y) < 10)
+                                value.Add(temp);
+                            else
+                                break;
                         }
                         break;
                         #endregion
@@ -743,19 +759,35 @@ namespace Game
                         #region CrossRoadsSmall
                         for (int i = 0; i < 2; ++i) //dir 3
                         {
-                            value.Add(new Field(Center.X, Center.Y - i - (with / 2)));
+                            Field temp = new Field(Center.X, Center.Y - i - (with / 2));
+                            if(surrounding(temp.X,temp.Y) < 10)
+                                value.Add(temp);
+                            else
+                                break;
                         }
                         for (int i = 0; i < 2; ++i) //dir 4
                         {
-                            value.Add(new Field(Center.X + i + (hight / 2), Center.Y));
+                            Field temp = new Field(Center.X + i + (hight / 2), Center.Y);
+                            if (surrounding(temp.X, temp.Y) < 10)
+                                value.Add(temp);
+                            else
+                                break;
                         }
                         for (int i = 0; i < 2; ++i) //dir 1
                         {
-                            value.Add(new Field(Center.X, Center.Y + i + (with / 2)));
+                            Field temp = new Field(Center.X, Center.Y + i + (with / 2));
+                            if (surrounding(temp.X, temp.Y) < 10)
+                                value.Add(temp);
+                            else
+                                break;
                         }
                         for (int i = 0; i < 2; ++i) //dir 2
                         {
-                            value.Add(new Field(Center.X - i - (hight / 2), Center.Y));
+                            Field temp = new Field(Center.X - i - (hight / 2), Center.Y);
+                            if (surrounding(temp.X, temp.Y) < 10)
+                                value.Add(temp);
+                            else
+                                break;
                         }
                         break;
                         #endregion

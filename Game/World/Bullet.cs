@@ -80,6 +80,7 @@ namespace Game
             this.livePoints = livePoints;
             this.liveTime = liveTime;
             this.type = bulletType;
+            this.hitbox = new Rectangle((int)position.X, (int)position.Y, size, size);
             switch(bulletType)
             {
                 case WorldItemType.EnemyBullet:
@@ -103,6 +104,11 @@ namespace Game
             this.position += direction;
             this.hitbox.X = (int)position.X;
             this.hitbox.Y = (int)position.Y;
+            this.liveTime -= TimeSpan.FromMilliseconds(150);
+            if(liveTime.TotalMilliseconds <= 0.1)
+            {
+                this.livePoints = -1;
+            }
         }
 
         public void Touch(IWorldItem partner)
@@ -143,12 +149,11 @@ namespace Game
 
         public void Death()
         {
-            throw new NotImplementedException();
         }
 
         public void Draw(SpriteBatch sb, Texture2D tex, SpriteFont font)
         {
-            throw new NotImplementedException();
+            sb.Draw(tex, hitbox, color);
         }
     }
 }
