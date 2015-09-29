@@ -61,29 +61,80 @@ namespace Game
             get { return this.type; }
         }
 
-        public Color color;
-        public float size;
-        public Vector2 position;
-        public Rectangle hitbox;
-        public int touchDamage;
-        public int livePoints;
-        public List<IWorldItem> touchedThisFrame;
-        public TimeSpan liveTime;
-        public WorldItemType type;
+        private Color color;
+        private float size;
+        private Vector2 position;
+        private Rectangle hitbox;
+        private int touchDamage;
+        private int livePoints;
+        private List<IWorldItem> touchedThisFrame;
+        private TimeSpan liveTime;
+        private WorldItemType type;
         private Field parrent;
+        private DateTime lastSpawn;
 
-        public void Update(Microsoft.Xna.Framework.GameTime gametime)
+        public MonsterSpawner(int x, int y, int touchDamage, int livePoints, TimeSpan timeBetweenSpawns, Field parrent)
         {
-            throw new NotImplementedException();
+            this.position = new Vector2(x * Data.BlockSize, y * Data.BlockSize);
+            this.hitbox = new Rectangle(x * Data.BlockSize, y * Data.BlockSize, Data.BlockSize, Data.BlockSize);
+            this.color = GameColors.EBasic;
+            this.touchDamage = touchDamage;
+            this.livePoints = livePoints;
+            this.liveTime = timeBetweenSpawns;
+            this.parrent = parrent;
+            this.type = WorldItemType.Spawner;
+            this.touchedThisFrame = new List<IWorldItem>();
+            this.lastSpawn = DateTime.Now;
+        }
+
+        public void Update(GameTime gametime)
+        {
+            float minPlayerDistance = float.MaxValue;
+            foreach(IWorldItem iwi in World.WorldList)
+            {
+                if(iwi.Type == WorldItemType.Player)
+                {
+                    float tempdist = Vector2.Distance(this.position,iwi.Position);
+                    if(tempdist < minPlayerDistance)
+                    {
+                        minPlayerDistance = tempdist;
+                    }
+                }
+            }
+            if(minPlayerDistance < Data.BufferDistance / 2)
+            {
+                if(lastSpawn.Subtract(liveTime) > DateTime.Now)
+                {
+                    //TODO: Spawn Enemy
+                }
+            }
         }
 
         public void Touch(IWorldItem partner)
         {
-            throw new NotImplementedException();
+            switch (partner.Type)
+            {
+                case WorldItemType.Player:
+                case WorldItemType.PlayerBullet:
+                    if (this.type == WorldItemType.EnemyBullet)
+                    {
+                        if (!touchedThisFrame.Contains(partner))
+                        {
+                            touchedThisFrame.Add(partner);
+                            partner.TouchedThisFrame.Add(this);
+                            partner.LivePoints -= this.touchDamage;
+                            this.livePoints -= partner.TouchDamage;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void Death()
         {
+
         }
 
         public void Draw(SpriteBatch sb, Texture2D tex, SpriteFont font)

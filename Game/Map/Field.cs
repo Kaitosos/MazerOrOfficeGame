@@ -108,7 +108,7 @@ namespace Game
         {
             if(type == FieldTypes.Spawner)
             {
-                this.spawner = new MonsterSpawner();
+                this.spawner = new MonsterSpawner(x,y,5,25,TimeSpan.FromSeconds(30),this);
                 World.WorldList.Add(spawner);
             }
         }

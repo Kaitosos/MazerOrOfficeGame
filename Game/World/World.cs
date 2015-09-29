@@ -49,6 +49,7 @@ namespace Game
             }
             #endregion
         }
+
         public static void Draw(SpriteBatch sb, Texture2D tex, SpriteFont font)
         {
             foreach(IWorldItem iwi in WorldList)
